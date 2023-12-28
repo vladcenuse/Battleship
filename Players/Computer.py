@@ -9,7 +9,7 @@ class Computer:
         self.ships = []
         self.shooting_pattern = []
 
-    def player_lost(self):
+    def computer_lost(self):
         for ship in self.ships:
             if ship.isSunk == False:
                 return False
@@ -18,6 +18,7 @@ class Computer:
     def place_5_ships(self):
         # 1 ship of size 5 , 1 ship of size 4, 2 ships of size 3 and 1 ship of size 2
         ship_size = [5, 4, 3, 3, 2]
+        # ship_size = [5]
         for size in ship_size:
             placed = False
             while placed == False:
@@ -51,20 +52,6 @@ class Computer:
                     self.shooting_pattern.append((i, j))
 
 
-    def computer_shoot(self, human : Human):
-        # In case the computer hits a ship, it will shoot around that square, and if it hits again, it will shoot in that direction until it sunks the ship, otherwise it will shoot in the other remaining directions
-        #Start shooting from the pattern
-        # Write the code for this
 
 
 
-
-
-
-
-
-for i in range(1):
-    PC = Computer()
-    PC.place_5_ships()
-    print(PC.board)
-    print("\n")

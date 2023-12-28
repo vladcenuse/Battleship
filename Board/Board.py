@@ -101,12 +101,3 @@ class Board:
                 elif i[0] > 9:
                     raise ValueError("Invalid position! The ship is out of bounds!")
 
-#TODO sa verific sa nu iasa in afara gridului ca da crash
-
-# board = Board("human")
-# ship = Ship(5, "v")
-# ship.vertical_ship(7, 8)
-# print(ship.coordinates)
-# for i in ship.coordinates:
-#     value = board.get_position_in_matrix(i[0], i[1])
-#     print(value)
