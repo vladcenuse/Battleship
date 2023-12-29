@@ -1,7 +1,8 @@
-from Game.Game_Unfold import Game, game_unfolding
+from Game.Game_Unfold import game_unfolding
 
-def main():
-    game_unfolding()
 
 if __name__ == "__main__":
-    main()
+    game_unfolding()
+
+
+#TODO treat the case where the computer shoots in the middle of the ship

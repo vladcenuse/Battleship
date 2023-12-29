@@ -25,7 +25,7 @@ class Board:
         # This is to check if the input position to shoot is valid
         if row < 0 or row > 9 or column < 0 or column > 9:
             raise ValueError("Invalid position! The bounds are not respected ")
-        elif self.get_matrix_square_value(row, column) == 1:
+        elif self.get_matrix_square_value(row, column) == 1 or self.get_matrix_square_value(row, column) == 3 : #TODO remove second part and make it !=0
             raise ValueError("Invalid position! You already shot here!")
         else:
             return True
