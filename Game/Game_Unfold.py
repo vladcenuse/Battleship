@@ -14,8 +14,8 @@ class Game:
         self.ship_direction = None
 
     def place_ships(self):
-        #ship_size = [5, 4, 3, 3, 2] #TODO uncomment this
-        ship_size = [5]
+        ship_size = [5, 4, 3, 3, 2] #TODO uncomment this
+        #ship_size = [5]
         for size in ship_size:
             print("Enter the coordinates for the ship of size " + str(size))
             self.human.input_and_add_ship(size)
