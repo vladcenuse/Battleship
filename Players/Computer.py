@@ -1,7 +1,6 @@
 import random
 from Board.Board import Board
 from Ship.Ship import Ship
-from Players.Human import Human
 
 class Computer:
     def __init__(self):

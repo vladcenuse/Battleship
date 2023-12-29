@@ -51,8 +51,8 @@ class Game:
                 valid_shot = False
 
     def check_for_ship_direction(self, row, column):
-        # TODO we need to check that the neighbour squares are either 0 or 3 (unknown or hit)
-        # TODO we need to check that squares are not outside the matrix
+        #  we need to check that the neighbour squares are either 0 or 3 (unknown or hit)
+        #  we need to check that squares are not outside the matrix
 
         if (row-1) >= 0 and (row-1) <= 9 and (column) >= 0 and (column) <= 9:
             if self.human.board.get_matrix_square_value(row - 1, column) == 3:
@@ -100,7 +100,7 @@ class Game:
                 self.human.board.set_matrix_square(row, column, 1)
                 print("Miss!")
         else:
-            # TODO we treat 2 cases, one if we know the direction of the ship and one if we don't
+            # we treat 2 cases, one if we know the direction of the ship and one if we don't
             self.check_for_ship_direction(self.computer_last_hit_coordinates[0], self.computer_last_hit_coordinates[1])
             if self.ship_direction == None:  # This means that we only hit the ship once and we don't know the direction
                 # we need to pick a random neighbour square
@@ -148,7 +148,6 @@ class Game:
                     self.human.board.set_matrix_square(row, column, 1)
                     print("Miss!")
                     self.computer_last_hit_coordinates = (initial_row, initial_column)
-                    #TODO after checking coords ..
             else:  # This means that we know the direction of the ship
                 if self.ship_direction == "v":
                     valid_coords = []

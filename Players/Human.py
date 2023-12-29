@@ -33,12 +33,3 @@ class Human:
             if ship.isSunk == False:
                 return False
         return True
-
-
-# player = Human()
-# ship_size = [5,4,3,3,2]
-# for size in ship_size:
-#     player.input_and_add_ship(size)
-#     print(player.board)
-
-#TODO add disclaimer to not place ships near each other
