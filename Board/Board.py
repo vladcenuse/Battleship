@@ -1,6 +1,6 @@
 from texttable import Texttable
 from Ship.Ship import Ship
-
+from colorama import Fore, Style
 
 class Board:
     def __init__(self,player_type):
@@ -56,7 +56,7 @@ class Board:
                 elif i == 1:
                     temp_board.append("O")
                 elif i == 2:
-                    temp_board.append("X")
+                    temp_board.append("~")  # TODO
                 elif i == 3:
                     temp_board.append("H")
         return temp_board
@@ -72,7 +72,6 @@ class Board:
             table.add_row(board_to_print[i * 10: i * 10 + 10])
 
         return table.draw()
-
     def add_ship(self, ship: Ship):
         if ship.orientation == "h":
             for i in ship.coordinates:

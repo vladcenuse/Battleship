@@ -21,6 +21,8 @@ class Human:
                 elif orientation == "v":
                     ship.vertical_ship(row, column)
                     self.board.check_if_ship_fits(ship)
+                else:
+                    raise ValueError("Invalid orientation!")
                 self.ships.append(ship)
                 self.board.add_ship(ship)
             except ValueError as ve:

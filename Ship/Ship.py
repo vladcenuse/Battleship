@@ -25,18 +25,3 @@ class Ship:
         if [row, column] in self.coordinates:
             self.coordinates.remove([row, column])
 
-    #TODO when implementing computer shooting patern, consider the case where we have 2 adiecent ships and we the computer hits both of them
-    #TODO in caz ca 2 nave sunt lipite si le lovim pe ambele, sa nu considere ai-ul ca este doar o nava ( )
-    #TODO Daca nu reusesc sa fixez asta, sa nu puna playerul navele lipite una de alta
-
-# ship = Ship(3, "h")
-# ship.horizontal_ship(0, 0)
-# print(ship.coordinates)
-# ship.hit_ship(0, 0)
-# print(ship.coordinates)
-# ship.hit_ship(0, 1)
-# print(ship.coordinates)
-# ship.hit_ship(0, 2)
-# print(ship.coordinates)
-# ship.check_if_sunk()
-# print(ship.isSunk)
