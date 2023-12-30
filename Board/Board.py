@@ -56,7 +56,7 @@ class Board:
                 elif i == 1:
                     temp_board.append("O")
                 elif i == 2:
-                    temp_board.append("~")  # TODO
+                    temp_board.append("~")
                 elif i == 3:
                     temp_board.append("H")
         return temp_board
