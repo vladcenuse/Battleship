@@ -1,5 +1,8 @@
 from Board.Board import Board
 from Ship.Ship import Ship
+from ui.ui import User_Inputs_Outputs
+
+ui = User_Inputs_Outputs
 
 class Human:
     def __init__(self):
@@ -11,9 +14,7 @@ class Human:
         while placed == False:
             placed = True
             try:
-                row = int(input("Row: "))
-                column = int(input("Column: "))
-                orientation = input("Orientation(h/v):  ")
+                row,column,orientation = User_Inputs_Outputs.place_ship()
                 ship = Ship(size, orientation)
                 if orientation == "h":
                     ship.horizontal_ship(row, column)

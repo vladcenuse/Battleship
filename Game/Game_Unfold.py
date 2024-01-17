@@ -1,6 +1,9 @@
 from Players.Computer import Computer
 from Players.Human import Human
+from ui.ui import User_Inputs_Outputs
+
 import random
+ui = User_Inputs_Outputs
 
 
 class Game:
@@ -17,11 +20,10 @@ class Game:
 
     def place_ships(self):
         ship_size = [5, 4, 3, 3, 2]
-        #ship_size = [5]
         for size in ship_size:
-            print("Enter the coordinates for the ship of size " + str(size))
+            ui.input_coordinate_for_ship(size)
             self.human.input_and_add_ship(size)
-            print("Your board looks like this so far: ")
+            ui.board_so_far()
             print(self.human.board)
         self.computer.place_5_ships()
 
@@ -29,25 +31,24 @@ class Game:
         valid_shot = False
         while valid_shot == False:
             valid_shot = True
-            print("Enter the coordinates for the shot: ")
+            ui.input_coordinate_for_shot()
             try:
-                row = int(input("Row: "))
-                column = int(input("Column: "))
+                (row, column) = ui.input_coordinates()
                 self.computer.board.check_if_position_is_valid(row, column)
                 if self.computer.board.get_matrix_square_value(row, column) == 2:
-                    print("Hit!")
+                    ui.hit()
                     self.computer.board.set_matrix_square(row, column, 3)
                     for ship in self.computer.ships:
                         ship.hit_ship(row, column)
                         ship.check_if_sunk()
                         if ship.isSunk == True:
-                            print("You sunk a ship!")
+                            ui.sunk_ship()
                             self.computer.ships.remove(ship)
                             if self.computer.computer_lost() == True:
                                 self.player_won = True
                 else:
                     self.computer.board.set_matrix_square(row, column, 1)
-                    print("Miss!")
+                    ui.miss()
             except ValueError as ve:
                 print(ve)
                 valid_shot = False
@@ -83,9 +84,9 @@ class Game:
                 if i != (row, column):
                     temp_list.append(i)
             self.computer.shooting_pattern = temp_list
-            print("Computer shoots: " + str(row) + " " + str(column))
+            ui.computer_shot(row, column)
             if self.human.board.get_matrix_square_value(row, column) == 2:
-                print("Hit!")
+                ui.hit()
                 self.last_hit_ship_initial_row = row
                 self.last_hit_ship_initial_column = column
                 self.human.board.set_matrix_square(row, column, 3)
@@ -93,7 +94,7 @@ class Game:
                     ship.hit_ship(row, column)
                     ship.check_if_sunk()
                     if ship.isSunk == True:
-                        print("The computer sunk a ship!")
+                        ui.computer_sunk_ship()
                         self.human.ships.remove(ship)
                         if self.human.player_lost() == True:
                             self.computer_won = True
@@ -102,7 +103,7 @@ class Game:
                         self.computer_last_hit_coordinates = (row, column)
             else:
                 self.human.board.set_matrix_square(row, column, 1)
-                print("Miss!")
+                ui.miss()
         else:
             # we treat 2 cases, one if we know the direction of the ship and one if we don't
             self.check_for_ship_direction(self.computer_last_hit_coordinates[0], self.computer_last_hit_coordinates[1])
@@ -128,9 +129,9 @@ class Game:
                     if i != (row, column):
                         temp_list.append(i)
                 self.computer.shooting_pattern = temp_list
-                print("Computer shoots: " + str(row) + " " + str(column))
+                ui.computer_shot(row, column)
                 if self.human.board.get_matrix_square_value(row, column) == 2:
-                    print("Hit!")
+                    ui.hit()
                     self.ship_direction = self.check_for_ship_direction(row, column)
                     self.human.board.set_matrix_square(row, column, 3)
                     self.computer_last_hit_coordinates = (row, column)
@@ -138,7 +139,7 @@ class Game:
                         ship.hit_ship(row, column)
                         ship.check_if_sunk()
                         if ship.isSunk == True:
-                            print("The computer sunk a ship!")
+                            ui.computer_sunk_ship()
                             self.human.ships.remove(ship)
                             self.computer_hit_a_ship = False
                             self.computer_last_hit_coordinates = None
@@ -147,7 +148,7 @@ class Game:
 
                 else:
                     self.human.board.set_matrix_square(row, column, 1)
-                    print("Miss!")
+                    ui.miss()
                     self.computer_last_hit_coordinates = (self.computer_last_hit_coordinates[0], self.computer_last_hit_coordinates[1])
             else:  # This means that we know the direction of the ship
                 if self.ship_direction == "v":
@@ -171,16 +172,16 @@ class Game:
                         if i != (row, column):
                             temp_list.append(i)
                     self.computer.shooting_pattern = temp_list
-                    print("Computer shoots: " + str(row) + " " + str(column))
+                    ui.computer_shot(row, column)
                     if self.human.board.get_matrix_square_value(row, column) == 2:
-                        print("Hit!")
+                        ui.hit()
                         self.human.board.set_matrix_square(row, column, 3)
                         self.computer_last_hit_coordinates = (row, column)
                         for ship in self.human.ships:
                             ship.hit_ship(row, column)
                             ship.check_if_sunk()
                             if ship.isSunk == True:
-                                print("The computer sunk a ship!")
+                                ui.computer_sunk_ship()
                                 self.human.ships.remove(ship)
                                 self.computer_hit_a_ship = False
                                 self.computer_last_hit_coordinates = None
@@ -189,7 +190,7 @@ class Game:
                                     self.computer_won = True
                     else:
                         self.human.board.set_matrix_square(row, column, 1)
-                        print("Miss!")
+                        ui.miss()
                         self.computer_last_hit_coordinates = (self.last_hit_ship_initial_row, self.last_hit_ship_initial_column)
                 elif self.ship_direction == "h":
                     valid_coords = []
@@ -212,16 +213,16 @@ class Game:
                         if i != (row, column):
                             temp_list.append(i)
                     self.computer.shooting_pattern = temp_list
-                    print("Computer shoots: " + str(row) + " " + str(column))
+                    ui.computer_shot(row, column)
                     if self.human.board.get_matrix_square_value(row, column) == 2:
-                        print("Hit!")
+                        ui.hit()
                         self.human.board.set_matrix_square(row, column, 3)
                         self.computer_last_hit_coordinates = (row, column)
                         for ship in self.human.ships:
                             ship.hit_ship(row, column)
                             ship.check_if_sunk()
                             if ship.isSunk == True:
-                                print("The computer sunk a ship!")
+                                ui.computer_sunk_ship()
                                 self.human.ships.remove(ship)
                                 self.computer_hit_a_ship = False
                                 self.computer_last_hit_coordinates = None
@@ -230,47 +231,34 @@ class Game:
                                     self.computer_won = True
                     else:
                         self.human.board.set_matrix_square(row, column, 1)
-                        print("Miss!")
+                        ui.miss()
                         self.computer_last_hit_coordinates = (self.last_hit_ship_initial_row, self.last_hit_ship_initial_column)
 
 
     def determine_a_winner(self):
         if self.player_won == True:
-            print("The human has won! Congratulations")
+            ui.print_human_win_message()
             exit(0)
         if self.computer_won == True:
-            print("The human has lost! Take the L")
+            ui.print_computer_win_message()
             exit(0)
 
-    @staticmethod
-    def print_menu():
-        print("\n\033[1mWelcome to Battleship!\033[0m")
-        print("-------------------------------------------------------")
-        print("\033[1mRules:\033[0m")
-        print("\u2022 You have 5 ships to place on the board.")
-        print("\u2022 Ships can be placed horizontally or vertically.")
-        print("\u2022 Ships must not overlap.")
-        print("\u2022 The human and the computer take turns shooting at each other.")
-        print("\u2022 The first one to sink all the ships wins.")
-        print(
-            "\n\033[1mDisclaimer:\033[0m For a better experience, please maximize the terminal window and avoid placing ships near each other.")
-        print("\n\033[1mGood luck!\033[0m")
-        print("-------------------------------------------------------\n")
+
 
 
 def game_unfolding():
     game = Game()
-    game.print_menu()
+    ui.print_menu()
     game.place_ships()
     game.computer.fill_shooting_pattern()
-    print("Let the game begin!")
-    print()
-    print()
+    ui.print_start_message()
+    ui.print_blank_space()
+    ui.print_blank_space()
     round = 1
     while True:
-        print("Round " + str(round))
+        ui.print_round(round)
         round += 1
-        print()
+        ui.print_blank_space()
 
         game.input_and_shoot()
 
@@ -281,11 +269,11 @@ def game_unfolding():
         for comp_line, human_line in zip(computer_board_lines, human_board_lines):
             combined_boards += comp_line + "    " + human_line + "\n"
 
-        print("Computer's board:                              Human's board:")
+        ui.print_board_players()
         print(combined_boards)
 
         game.determine_a_winner()
-        print()
+        ui.print_blank_space()
 
         game.computer_shot()
 
@@ -296,7 +284,7 @@ def game_unfolding():
         for comp_line, human_line in zip(computer_board_lines, human_board_lines):
             combined_boards += comp_line + "    " + human_line + "\n"
 
-        print("Computer's board:                              Human's board:")
+        ui.print_board_players()
         print(combined_boards)
 
         game.determine_a_winner()
