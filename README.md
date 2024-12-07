@@ -1,1 +1,1 @@
-Console based Battleship game that is played between the user and an AI, that implements a working strategy for the AI, to be able to completely destroy a ship once it was hit, and also attack with a pattern.
+## Console based Battleship game that is played between the user and an AI, that implements a working strategy for the AI, to be able to completely destroy a ship once it was hit, and also attack with a pattern.
